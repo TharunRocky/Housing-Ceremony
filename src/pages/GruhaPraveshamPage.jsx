@@ -16,6 +16,45 @@ function BackgroundMusic() {
     setPlaying(!playing);
   };
 
+  useEffect(() => {
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  audio.volume = 0.3;
+
+  let wasPlaying = false;
+
+  const handleHide = () => {
+    if (!audio.paused) {
+      wasPlaying = true;
+      audio.pause();
+    } else {
+      wasPlaying = false;
+    }
+  };
+
+  const handleShow = () => {
+    if (wasPlaying) {
+      audio.play().catch(() => {});
+    }
+  };
+
+  // Most reliable combo
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) handleHide();
+    else handleShow();
+  });
+
+  window.addEventListener("pagehide", handleHide); // mobile + minimize
+  window.addEventListener("pageshow", handleShow);
+
+  return () => {
+    document.removeEventListener("visibilitychange", handleHide);
+    window.removeEventListener("pagehide", handleHide);
+    window.removeEventListener("pageshow", handleShow);
+  };
+}, []);
+
   return (
     <>
       <audio ref={audioRef} loop>

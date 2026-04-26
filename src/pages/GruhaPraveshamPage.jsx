@@ -1,0 +1,253 @@
+import CountdownTimer from "@/components/CountdownTimer";
+import { Kalasham, Toran, Mandala, Om } from "@/components/Decor";
+import { MapPin, Calendar, Clock, Sparkles } from "lucide-react";
+
+// Placeholder ceremony details — easily editable
+const CEREMONY = {
+  dateISO: "2026-04-30T07:30:00+05:30",
+
+  dateLabel: "Thursday, 30 April 2026",
+  teluguDateLabel: "గురువారం, 30 ఏప్రిల్ 2026",
+
+  timeLabel: "7:30 AM (Muhurtham)",
+  teluguTimeLabel: "ఉదయం 7:30 (ముహూర్తం)",
+
+  family: "Korupolu Family",
+  teluguFamily: "కోరుపోలు కుటుంబం",
+
+  addressLines: [
+    "Flat 301, Poojitha Sree Jayadev Arcade",
+    "Laxmipuram, Vepagunta",
+    "Visakhapatnam – 530047",
+  ],
+
+  teluguAddressLine:
+    "ఫ్లాట్ 301, పూజిత శ్రీ జయదేవ్ ఆర్కేడ్, లక్ష్మీపురం, వేపగుంట, విశాఖపట్నం - 530047",
+
+  mapsLink: "https://maps.app.goo.gl/dhsvArXETprmWKpA9",
+};
+
+const mapsEmbedSrc =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1899.5564705922038!2d83.19892986561302!3d17.78638837378874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a396657ca936659%3A0xdd7ff36a959cb72b!2s6-63%2C%20Port%20Colony%2C%20MES%20Layout%2C%20Chintalagraharam%2C%20Vepagunta%2C%20Lakshmi%20Puram%2C%20Andhra%20Pradesh%20530047!5e0!3m2!1sen!2sin!4v1777174059521!5m2!1sen!2sin";
+const SectionDivider = ({ children }) => (
+  <div className="flex items-center justify-center my-12 sm:my-16">
+    <span className="h-px w-16 sm:w-24 bg-gold/50" />
+    <span className="mx-4 font-telugu text-base text-kumkum">{children}</span>
+    <span className="h-px w-16 sm:w-24 bg-gold/50" />
+  </div>
+);
+
+export default function GruhaPraveshamPage() {
+  return (
+    <main className="relative min-h-screen overflow-x-hidden bg-paper text-ink paper-grain">
+      
+      {/* Mango toran */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-24 sm:h-28 lg:h-32 overflow-hidden animate-fade-in z-0">
+        <Toran className="absolute -top-1 left-0 w-full h-full" />
+      </div>
+
+      {/* Mandalas */}
+      <Mandala className="pointer-events-none absolute -left-24 top-[60%] w-72 text-kumkum/15 animate-slow-spin" />
+      <Mandala className="pointer-events-none absolute -right-24 top-[15%] w-64 text-gold/30 animate-slow-spin" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-12 pt-32 sm:pt-40 pb-20">
+
+        {/* HERO */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+          {/* Left */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-up">
+            <div className="relative">
+              <Kalasham className="w-44 sm:w-52 lg:w-60 drop-shadow-[0_8px_18px_rgba(139,30,15,0.18)] animate-flicker" />
+              <div className="absolute -inset-6 -z-10 rounded-full bg-turmeric/25 blur-2xl" />
+            </div>
+
+            <p className="mt-6 font-body uppercase tracking-[0.4em] text-xs text-kumkum/80 flex items-center gap-3">
+              <Sparkles className="w-3 h-3" />
+              శుభాకాంక్షలతో
+              <Sparkles className="w-3 h-3" />
+            </p>
+
+            <h1 className="mt-3 font-telugu text-5xl sm:text-6xl lg:text-7xl text-kumkum leading-[1.05]">
+              గృహప్రవేశం
+            </h1>
+
+            <h2 className="mt-2 font-display italic text-3xl sm:text-4xl lg:text-5xl text-ink/90">
+              Gruha Pravesham
+            </h2>
+
+            <p className="mt-4 font-body text-base sm:text-lg text-ink/70 max-w-md">
+              An auspicious housewarming ceremony — a humble invitation to bless
+              our new home with your presence.
+            </p>
+          </div>
+
+          {/* Right */}
+          <div className="lg:col-span-7 animate-fade-up" style={{ animationDelay: "180ms" }}>
+            <div className="relative bg-paper/95 p-8 sm:p-10 lg:p-12 outline outline-1 outline-offset-[8px] outline-gold/40 shadow-[0_30px_60px_-30px_rgba(139,30,15,0.25)]">
+              
+              <Om className="absolute top-6 right-6 w-7 h-7 text-kumkum/70" />
+
+              <p className="font-telugu text-base text-kumkum/90">
+                మీ అమూల్యమైన ఆశీర్వాదం కోసం…
+              </p>
+
+              <p className="mt-2 font-display italic text-lg sm:text-xl text-ink/80">
+                With folded hands and a hopeful heart,
+                <br />
+                <span className="text-kumkum not-italic font-semibold">
+                  {CEREMONY.family}
+                </span>{" "}
+                warmly invites you.
+              </p>
+
+              <div className="gold-divider my-8" />
+
+              <p className="font-body text-xs uppercase tracking-[0.32em] text-ink/60 mb-4">
+                Ceremony begins in
+              </p>
+
+              <CountdownTimer target={CEREMONY.dateISO} />
+
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm">
+                <div className="flex items-center gap-2 text-ink/80">
+                  <Calendar className="w-4 h-4 text-kumkum" />
+                  <span className="font-display">{CEREMONY.dateLabel}</span>
+                </div>
+
+                <div className="flex items-center gap-2 text-ink/80">
+                  <Clock className="w-4 h-4 text-kumkum" />
+                  <span className="font-display">{CEREMONY.timeLabel}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+
+        <SectionDivider>శుభం</SectionDivider>
+
+        {/* WELCOME */}
+        <section className="max-w-3xl mx-auto text-center animate-fade-up">
+          <p className="font-telugu text-2xl sm:text-3xl text-kumkum leading-relaxed">
+            మా క్రొత్త ఇంటికి స్వాగతం
+          </p>
+
+          <p className="mt-4 font-display italic text-xl sm:text-2xl text-ink">
+            “May this house be filled with laughter, light, and the soft scent of jasmine.”
+          </p>
+
+          <p className="mt-6 font-body text-base sm:text-lg text-ink/75 leading-relaxed">
+            With Lord Ganesha’s blessings and the love of family and friends,
+            we invite you to share in this sacred moment as we step into our new home.
+            Your presence will be the most cherished blessing of all.
+          </p>
+        </section>
+
+        <SectionDivider>వివరాలు</SectionDivider>
+
+        {/* DETAILS + MAP */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+
+          <div className="bg-paper/95 p-8 sm:p-10 outline outline-1 outline-offset-[8px] outline-gold/40 shadow-[0_30px_60px_-30px_rgba(139,30,15,0.25)] flex flex-col">
+            
+            <p className="font-body uppercase tracking-[0.32em] text-xs text-kumkum">
+              The Invitation
+            </p>
+
+            <h3 className="mt-3 font-display text-3xl sm:text-4xl text-ink">
+              Save the Date
+            </h3>
+
+            <p className="mt-1 font-telugu text-lg text-ink/70">
+              తేదీని గుర్తుంచుకోండి
+            </p>
+
+            <div className="mt-7 space-y-6">
+
+              <div className="flex gap-4">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-kumkum/10 text-kumkum">
+                  <Calendar className="w-4 h-4" />
+                </span>
+                <div>
+                  <p className="font-display text-lg">{CEREMONY.dateLabel}</p>
+                  <p className="font-telugu text-sm text-ink/70">
+                    {CEREMONY.teluguDateLabel}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-kumkum/10 text-kumkum">
+                  <Clock className="w-4 h-4" />
+                </span>
+                <div>
+                  <p className="font-display text-lg">{CEREMONY.timeLabel}</p>
+                  <p className="font-telugu text-sm text-ink/70">
+                    {CEREMONY.teluguTimeLabel}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-kumkum/10 text-kumkum">
+                  <MapPin className="w-4 h-4" />
+                </span>
+                <div>
+                  {CEREMONY.addressLines.map((line, i) => (
+                    <p key={i} className="font-display text-base">{line}</p>
+                  ))}
+                  <p className="mt-1 font-telugu text-sm text-ink/70">
+                    {CEREMONY.teluguAddressLine}
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="relative min-h-[360px] outline outline-1 outline-offset-[8px] outline-gold/40 shadow-[0_30px_60px_-30px_rgba(139,30,15,0.25)] overflow-hidden bg-paper">
+            <iframe
+              src={mapsEmbedSrc}
+              className="absolute inset-0 w-full h-full border-0"
+              loading="lazy"
+            />
+          </div>
+
+        </section>
+
+        <SectionDivider>ధన్యవాదములు</SectionDivider>
+
+        {/* ✅ CLOSING / FOOTER */}
+        <section className="relative max-w-3xl mx-auto text-center pb-6">
+          
+          <Mandala className="mx-auto w-32 sm:w-40 text-kumkum/60 animate-slow-spin" />
+
+          <p className="mt-6 font-telugu text-2xl text-kumkum">
+            మీ రాక మాకు ఆశీర్వాదం.
+          </p>
+
+          <p className="mt-2 font-display italic text-xl text-ink">
+            Your presence is our blessing.
+          </p>
+
+          <p className="mt-6 text-sm uppercase tracking-[0.32em] text-ink/60">
+            WITH LOVE & GRATITUDE
+          </p>
+
+          <p className="mt-3 font-display text-lg text-kumkum">
+            — {CEREMONY.family}
+          </p>
+
+          <p className="font-telugu text-sm text-ink/70">
+            — {CEREMONY.teluguFamily}
+          </p>
+          </section>
+        
+
+      </div>
+    </main>
+  );
+}

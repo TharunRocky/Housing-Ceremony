@@ -1,6 +1,36 @@
 import CountdownTimer from "@/components/CountdownTimer";
 import { Kalasham, Toran, Mandala, Om } from "@/components/Decor";
 import { MapPin, Calendar, Clock, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+
+
+function BackgroundMusic() {
+  const audioRef = useRef(null);
+  const [playing, setPlaying] = useState(true);
+
+  const toggle = () => {
+    if (!audioRef.current) return;
+    if (playing) audioRef.current.play();
+    else audioRef.current.pause();
+    setPlaying(!playing);
+  };
+
+  return (
+    <>
+      <audio ref={audioRef} loop>
+        <source src="/music.mp3" type="audio/mpeg" />
+      </audio>
+
+      <button
+        onClick={toggle}
+        className="fixed bottom-6 left-6 z-50 bg-kumkum text-white px-4 py-2 rounded-full shadow-lg text-sm"
+      >
+        {playing ? "🔇 Mute" : "🔊 Music"}
+      </button>
+    </>
+  );
+}
 
 // Placeholder ceremony details — easily editable
 const CEREMONY = {
@@ -21,6 +51,28 @@ const CEREMONY = {
     "Visakhapatnam – 530047",
   ],
 
+   muhurthamISO: "2026-04-30T19:30:00+05:30",
+
+  muhurtham: {
+    date: "Thursday, 30 April 2026",
+    time: "7:30 PM",
+    telugu: "గురువారం సాయంత్రం 7:30",
+  },
+
+  lunch: {
+    date: "Friday, 1 May 2026",
+    time: "12:30 PM",
+    telugu: "శుక్రవారం మధ్యాహ్నం 12:30",
+  },
+
+  venue: {
+    lines: [
+      "Flat 301, Poojitha Sree Jayadev Arcade",
+      "Laxmipuram, Vepagunta",
+      "Visakhapatnam – 530047",
+    ],
+  },
+
   teluguAddressLine:
     "ఫ్లాట్ 301, పూజిత శ్రీ జయదేవ్ ఆర్కేడ్, లక్ష్మీపురం, వేపగుంట, విశాఖపట్నం - 530047",
 
@@ -40,6 +92,13 @@ const SectionDivider = ({ children }) => (
 export default function GruhaPraveshamPage() {
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-paper text-ink paper-grain">
+
+      <BackgroundMusic />
+
+
+
+        {/* DETAILS */}
+     
       
       {/* Mango toran */}
       <div className="pointer-events-none absolute top-0 left-0 right-0 h-24 sm:h-28 lg:h-32 overflow-hidden animate-fade-in z-0">
@@ -54,6 +113,29 @@ export default function GruhaPraveshamPage() {
 
         {/* HERO */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+           <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
+
+    {/* Ganesh */}
+    <img
+      src="ganesh.png"
+      alt="ganesha"
+      className="w-20 mb-4 opacity-80"
+    />
+
+    {/* Blessing */}
+    <p className="font-body uppercase tracking-[0.35em] text-xs text-kumkum/80">
+      With the blessings of our elders
+    </p>
+
+    {/* Family */}
+    <h3 className="mt-2 font-display text-xl text-ink">
+      {CEREMONY.family}
+    </h3>
+
+    {/* Spacer */}
+    <div className="h-6" />
+    </div>
 
           {/* Left */}
           <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-up">
@@ -107,17 +189,17 @@ export default function GruhaPraveshamPage() {
                 Ceremony begins in
               </p>
 
-              <CountdownTimer target={CEREMONY.dateISO} />
+              <CountdownTimer target={CEREMONY.muhurthamISO} />
 
               <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm">
                 <div className="flex items-center gap-2 text-ink/80">
                   <Calendar className="w-4 h-4 text-kumkum" />
-                  <span className="font-display">{CEREMONY.dateLabel}</span>
+                  <span className="font-display">{CEREMONY.muhurtham.date}</span>
                 </div>
 
                 <div className="flex items-center gap-2 text-ink/80">
                   <Clock className="w-4 h-4 text-kumkum" />
-                  <span className="font-display">{CEREMONY.timeLabel}</span>
+                  <span className="font-display">{CEREMONY.muhurtham.time}</span>
                 </div>
               </div>
 
@@ -148,7 +230,7 @@ export default function GruhaPraveshamPage() {
         <SectionDivider>వివరాలు</SectionDivider>
 
         {/* DETAILS + MAP */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+        {/* <section className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-stretch">
 
           <div className="bg-paper/95 p-8 sm:p-10 outline outline-1 outline-offset-[8px] outline-gold/40 shadow-[0_30px_60px_-30px_rgba(139,30,15,0.25)] flex flex-col">
             
@@ -216,8 +298,77 @@ export default function GruhaPraveshamPage() {
             />
           </div>
 
+        </section> */}
+
+         <section className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 px-4 pb-16">
+
+        {/* MUHURTHAM */}
+        <div className="bg-paper/80 backdrop-blur-md border border-gold/20 rounded-xl p-6 text-center shadow">
+          <Calendar className="mx-auto mb-3" />
+          <h3 className="text-xl font-semibold mb-2">MUHURTHAM</h3>
+
+          <p>{CEREMONY.muhurtham.date}</p>
+          <p className="text-2xl mt-2 font-bold">
+            {CEREMONY.muhurtham.time}
+          </p>
+          <p className="text-sm opacity-70 mt-1">
+            {CEREMONY.muhurtham.telugu}
+          </p>
+        </div>
+
+        {/* LUNCH */}
+        <div className="bbg-paper/80 backdrop-blur-md border border-gold/20 rounded-xl p-6 text-center shadow">
+          <Clock className="mx-auto mb-3" />
+          <h3 className="text-xl font-semibold mb-2">LUNCH</h3>
+
+          <p>{CEREMONY.lunch.date}</p>
+          <p className="text-2xl mt-2 font-bold">
+            {CEREMONY.lunch.time}
+          </p>
+          <p className="text-sm opacity-70 mt-1">
+            {CEREMONY.lunch.telugu}
+          </p>
+        </div>
+
+        {/* VENUE */}
+        <div className="bg-paper/80 backdrop-blur-md border border-gold/20 rounded-xl p-6 text-center shadow">
+          <MapPin className="mx-auto mb-3" />
+          <h3 className="text-xl font-semibold mb-2">VENUE</h3>
+
+          {CEREMONY.venue.lines.map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </div>
+
+      </section>
+
+      <section>
+
+      <div className="mt-6 border rounded-xl overflow-hidden shadow-sm">
+          <iframe
+            src={mapsEmbedSrc}
+            className="w-full h-[300px]"
+            loading="lazy"
+          />
+        </div>
+
+        {/* BUTTON */}
+        <a
+          href="https://maps.app.goo.gl/dhsvArXETprmWKpA9"
+          target="_blank"
+          className="inline-block mt-4 bg-kumkum text-white px-6 py-3 rounded-full shadow"
+        >
+          📍 Get Directions
+        </a>
+
         </section>
 
+      {/* <section className="text-center pb-10">
+        <p className="text-lg">We warmly invite you and your family</p>
+        <p className="mt-2 font-semibold">{CEREMONY.family}</p>
+      </section> */}
+
+      
         <SectionDivider>ధన్యవాదములు</SectionDivider>
 
         {/* ✅ CLOSING / FOOTER */}
